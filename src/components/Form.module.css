@@ -1,0 +1,11 @@
+.flexRow {
+  padding-bottom: 50px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input {
+  width: 32%;
+}

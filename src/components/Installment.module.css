@@ -1,0 +1,19 @@
+.box {
+  width: 10%;
+  padding: 2px 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+}
+
+.number {
+  color: black;
+  margin-right: 10px;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+}
