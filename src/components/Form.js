@@ -3,12 +3,12 @@ import css from "./Form.module.css";
 
 export default function Form({
   initialCapital,
-  monthlyInterestRate,
+  monthlyRate,
   timeCourse,
   handleChangeInput,
 }) {
   function handleChange(event) {
-    const value = event.target.value;
+    const value = +event.target.value;
     const input = event.target.id;
 
     handleChangeInput(value, input);
@@ -30,9 +30,9 @@ export default function Form({
       <label htmlFor="" className={css.input}>
         Taxa de juros mensal:
         <input
-          id="monthlyInterestRate"
+          id="monthlyRate"
           type="number"
-          value={monthlyInterestRate}
+          value={monthlyRate}
           step={0.5}
           onChange={handleChange}
         />
