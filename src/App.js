@@ -5,12 +5,14 @@ import Installments from "./components/Installments";
 import Warning from "./components/Warning";
 
 export default function App() {
-  const [initialCapital, setInitialCapital] = useState(0);
-  const [monthlyRate, setMonthlyRate] = useState(0);
-  const [timeCourse, setTimeCourse] = useState(1);
+  const [initialCapital, setInitialCapital] = useState(5900);
+  const [monthlyRate, setMonthlyRate] = useState(0.8);
+  const [timeCourse, setTimeCourse] = useState(12);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const CONSTS = {
+  const [installments, setInstallments] = useState([]);
+
+  const CONST = {
     MIN_INITIAL_CAPITAL: 0,
     MAX_INITIAL_CAPITAL: 100000,
     MIN_MONTHLY_RATE: -12,
@@ -22,11 +24,11 @@ export default function App() {
   function handleChangeInput(value, input) {
     if (input === "initialCapital") {
       if (
-        value < CONSTS.MIN_INITIAL_CAPITAL ||
-        value > CONSTS.MAX_INITIAL_CAPITAL
+        value < CONST.MIN_INITIAL_CAPITAL ||
+        value > CONST.MAX_INITIAL_CAPITAL
       ) {
         setErrorMessage(
-          `O capital inicial deve ser entre ${CONSTS.MIN_INITIAL_CAPITAL} e ${CONSTS.MAX_INITIAL_CAPITAL}!`
+          `O capital inicial deve ser entre ${CONST.MIN_INITIAL_CAPITAL} e ${CONST.MAX_INITIAL_CAPITAL}!`
         );
         return;
       }
@@ -35,9 +37,9 @@ export default function App() {
       return;
     }
     if (input === "monthlyRate") {
-      if (value < CONSTS.MIN_MONTHLY_RATE || value > CONSTS.MAX_MONTHLY_RATE) {
+      if (value < CONST.MIN_MONTHLY_RATE || value > CONST.MAX_MONTHLY_RATE) {
         setErrorMessage(
-          `A taxa de juros deve variar entre ${CONSTS.MIN_MONTHLY_RATE} e ${CONSTS.MAX_MONTHLY_RATE}!`
+          `A taxa de juros deve variar entre ${CONST.MIN_MONTHLY_RATE} e ${CONST.MAX_MONTHLY_RATE}!`
         );
         return;
       }
@@ -46,9 +48,9 @@ export default function App() {
       return;
     }
     if (input === "timeCourse") {
-      if (value < CONSTS.MIN_TIME_COUSE || value > CONSTS.MAX_TIME_COUSE) {
+      if (value < CONST.MIN_TIME_COUSE || value > CONST.MAX_TIME_COUSE) {
         setErrorMessage(
-          `As parcelas devem variar entre ${CONSTS.MIN_TIME_COUSE} e ${CONSTS.MAX_TIME_COUSE}!`
+          `As parcelas devem variar entre ${CONST.MIN_TIME_COUSE} e ${CONST.MAX_TIME_COUSE}!`
         );
         return;
       }
@@ -59,7 +61,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    const installments = [];
+    const arrayInstallment = [];
 
     for (let i = 1; i <= timeCourse; i++) {
       const installmentNumber = parseInt(i);
@@ -77,16 +79,14 @@ export default function App() {
 
       const objectInstallment = {
         id: i,
-        accumulatedAmount,
-        installment: currentInstallment,
-        rate: currentRate,
+        accumulatedAmount: accumulatedAmount.toFixed(2),
+        installment: currentInstallment.toFixed(2),
+        rate: currentRate.toFixed(2),
       };
 
-      installments.push(objectInstallment);
-
-      // console.log(objectInstallment);
+      arrayInstallment.push(objectInstallment);
     }
-    console.log(installments);
+    setInstallments(arrayInstallment);
   }, [initialCapital, monthlyRate, timeCourse]);
 
   return (
@@ -99,7 +99,7 @@ export default function App() {
         handleChangeInput={handleChangeInput}
       />
       <Warning>{errorMessage}</Warning>
-      <Installments />
+      <Installments installments={installments} />
     </div>
   );
 }
