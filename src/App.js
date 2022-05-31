@@ -79,9 +79,9 @@ export default function App() {
 
       const objectInstallment = {
         id: i,
-        accumulatedAmount: accumulatedAmount.toFixed(2),
-        installment: currentInstallment.toFixed(2),
-        rate: currentRate.toFixed(2),
+        accumulatedAmount,
+        installment: currentInstallment,
+        rate: currentRate,
       };
 
       arrayInstallment.push(objectInstallment);
