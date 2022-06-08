@@ -62,7 +62,11 @@ export default function App() {
   }
 
   useEffect(() => {
+    /* Array usado para armazenar temporariamente as parcelas para que depois 
+    sejam inseridas no estado da aplicação */
     const arrayInstallment = [];
+
+    // Para a primeira execução, "Montante atual" será o Capital Inicial
     let currentAmount = initialCapital;
 
     for (let i = 1; i <= timeCourse; i++) {
@@ -78,6 +82,7 @@ export default function App() {
       // Juros atual
       const currentRate = (currentInstallment * 100) / initialCapital;
 
+      // Objeto criado para formatar os dados
       const objectInstallment = {
         id: i,
         accumulatedAmount: currentAmount,
