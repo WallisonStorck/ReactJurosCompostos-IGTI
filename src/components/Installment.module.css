@@ -1,8 +1,15 @@
+:root {
+  --border-installment: #d3d3d3;
+  --positive-values: #4cb060;
+  --negative-values: #f44336;
+  --positive-percent: #21b2f8;
+}
+
 .box {
   min-width: 10%;
   padding: 2px 5px;
   margin: 5px 0px;
-  border: 2px solid black;
+  border: 1px solid var(--border-installment);
   border-radius: 5px;
 
   display: flex;
@@ -20,17 +27,17 @@
 }
 
 .positiveNumber {
-  color: green;
+  color: var(--positive-values);
 }
 
 .negativeNumber {
-  color: red;
+  color: var(--negative-values);
 }
 
 .positivePercent {
-  color: blue;
+  color: var(--positive-percent);
 }
 
 .negativePercent {
-  color: red;
+  color: var(--negative-values);
 }

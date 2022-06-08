@@ -1,8 +1,6 @@
 .text {
-  /* height: 35px; */
   display: inline-block;
-  /* justify-content: space-between; */
-  /* padding: 15px 1px; */
+  text-align: center;
 
   color: red;
   font-weight: bold;

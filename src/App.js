@@ -3,17 +3,18 @@ import Form from "./components/Form";
 import Header from "./components/Header";
 import Installments from "./components/Installments";
 import Warning from "./components/Warning";
+import css from "./App.module.css";
 
 export default function App() {
-  const [initialCapital, setInitialCapital] = useState(5900);
-  const [monthlyRate, setMonthlyRate] = useState(0.8);
-  const [timeCourse, setTimeCourse] = useState(12);
+  const [initialCapital, setInitialCapital] = useState(0);
+  const [monthlyRate, setMonthlyRate] = useState(0);
+  const [timeCourse, setTimeCourse] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [installments, setInstallments] = useState([]);
 
   const CONST = {
-    MIN_INITIAL_CAPITAL: 0,
+    MIN_INITIAL_CAPITAL: 1,
     MAX_INITIAL_CAPITAL: 100000,
     MIN_MONTHLY_RATE: -12,
     MAX_MONTHLY_RATE: 12,
@@ -62,24 +63,24 @@ export default function App() {
 
   useEffect(() => {
     const arrayInstallment = [];
+    let currentAmount = initialCapital;
 
     for (let i = 1; i <= timeCourse; i++) {
-      const installmentNumber = parseInt(i);
-
-      // Taxa acumulada atual
-      const currentRate = parseFloat(
-        (monthlyRate * installmentNumber).toFixed(2)
-      );
-
-      // Parcela atual
-      const currentInstallment = (initialCapital * currentRate) / 100;
+      // Previsão de acréscimo
+      const previsionOfAddition = (currentAmount * monthlyRate) / 100;
 
       // Montante atual
-      const accumulatedAmount = initialCapital + currentInstallment;
+      currentAmount = currentAmount + previsionOfAddition;
+
+      // Parcela atual
+      const currentInstallment = currentAmount - initialCapital;
+
+      // Juros atual
+      const currentRate = (currentInstallment * 100) / initialCapital;
 
       const objectInstallment = {
         id: i,
-        accumulatedAmount,
+        accumulatedAmount: currentAmount,
         installment: currentInstallment,
         rate: currentRate,
       };
@@ -90,7 +91,7 @@ export default function App() {
   }, [initialCapital, monthlyRate, timeCourse]);
 
   return (
-    <div style={{ padding: "0px 15px" }}>
+    <div className={css.container}>
       <Header>React - Juros Compostos</Header>
       <Form
         initialCapital={initialCapital}
